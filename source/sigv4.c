@@ -39,7 +39,7 @@
 
 /*-----------------------------------------------------------*/
 
-#if ( SIGV4_USE_CANONICAL_SUPPORT == 1 )
+#if ( SIGV4_USE_CANONICAL_SUPPORT == 1)
 
 /**
  * @brief Normalize a URI string according to RFC 3986 and fill destination
