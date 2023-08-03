@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -36,31 +37,42 @@
 #ifndef SIGV4_CONFIG_H_
 #define SIGV4_CONFIG_H_
 
-
-#define LOGGING_LEVEL_DEBUG    1
+#define LOGGING_LEVEL_DEBUG 1
 
 /* @[code_example_loggingmacros] */
 /************* Define Logging Macros using printf function ***********/
 
-#define PrintfError( ... )         printf( "[%d] Error: ", __LINE__ ); printf( __VA_ARGS__ );  printf( "\n" )
-#define PrintfWarn( ... )          printf( "[%d] Warn: ", __LINE__ ); printf( __VA_ARGS__ );  printf( "\n" )
-#define PrintfInfo( ... )          printf( "[%d] Info: ", __LINE__ ); printf( __VA_ARGS__ ); printf( "\n" )
-#define PrintfDebug( ... )         printf( "[%d] Debug: ", __LINE__ ); printf( __VA_ARGS__ ); printf( "\n" )
+#define PrintfError( ... )              \
+    printf( "[%d] Error: ", __LINE__ ); \
+    printf( __VA_ARGS__ );              \
+    printf( "\n" )
+#define PrintfWarn( ... )              \
+    printf( "[%d] Warn: ", __LINE__ ); \
+    printf( __VA_ARGS__ );             \
+    printf( "\n" )
+#define PrintfInfo( ... )              \
+    printf( "[%d] Info: ", __LINE__ ); \
+    printf( __VA_ARGS__ );             \
+    printf( "\n" )
+#define PrintfDebug( ... )              \
+    printf( "[%d] Debug: ", __LINE__ ); \
+    printf( __VA_ARGS__ );              \
+    printf( "\n" )
 
 #ifdef LOGGING_LEVEL_ERROR
-    #define LogError( message )    PrintfError message
+    #define LogError( message ) PrintfError message
 #elif defined( LOGGING_LEVEL_WARNING )
-    #define LogError( message )    PrintfError message
-    #define LogWarn( message )     PrintfWarn message
+    #define LogError( message ) PrintfError message
+    #define LogWarn( message )  PrintfWarn message
 #elif defined( LOGGING_LEVEL_INFO )
-    #define LogError( message )    PrintfError message
-    #define LogWarn( message )     PrintfWarn message
-    #define LogInfo( message )     PrintfInfo message
+    #define LogError( message ) PrintfError message
+    #define LogWarn( message )  PrintfWarn message
+    #define LogInfo( message )  PrintfInfo message
 #elif defined( LOGGING_LEVEL_DEBUG )
-    #define LogError( message )    PrintfError message
-    #define LogWarn( message )     PrintfWarn message
-    #define LogInfo( message )     PrintfInfo message
-    #define LogDebug( message )    PrintfDebug message
+    #define LogError( message ) PrintfError message
+    #define LogWarn( message )  PrintfWarn message
+    #define LogInfo( message )  PrintfInfo message
+    #define LogDebug( message ) PrintfDebug message
 #endif /* ifdef LOGGING_LEVEL_ERROR */
 
 /**************************************************/
@@ -77,7 +89,7 @@
  * <b>Default value:</b> `1024`
  */
 #ifndef SIGV4_PROCESSING_BUFFER_LENGTH
-    #define SIGV4_PROCESSING_BUFFER_LENGTH    428
+    #define SIGV4_PROCESSING_BUFFER_LENGTH 428
 #endif
 
 /**
@@ -91,7 +103,7 @@
  * <b>Default value:</b> `100`
  */
 #ifndef SIGV4_MAX_HTTP_HEADER_COUNT
-    #define SIGV4_MAX_HTTP_HEADER_COUNT    7U
+    #define SIGV4_MAX_HTTP_HEADER_COUNT 7U
 #endif
 
 /**
@@ -105,7 +117,7 @@
  * <b>Default value:</b> `100`
  */
 #ifndef SIGV4_MAX_QUERY_PAIR_COUNT
-    #define SIGV4_MAX_QUERY_PAIR_COUNT    5U
+    #define SIGV4_MAX_QUERY_PAIR_COUNT 5U
 #endif
 
 #endif /* ifndef SIGV4_CONFIG_H_ */

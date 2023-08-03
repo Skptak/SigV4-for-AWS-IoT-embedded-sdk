@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -29,8 +30,8 @@
 
 #include "sigv4_quicksort.h"
 
-#include <string.h>
 #include <assert.h>
+#include <string.h>
 
 /**
  * @brief Push a value to the stack.
@@ -60,9 +61,7 @@
  * @param[in] pSecondItem The item to swap with @p pFirstItem.
  * @param[in] itemSize The amount of memory per entry in the array.
  */
-static void swap( void * pFirstItem,
-                  void * pSecondItem,
-                  size_t itemSize );
+static void swap( void * pFirstItem, void * pSecondItem, size_t itemSize );
 
 /**
  * @brief A helper function to perform quicksort on a subarray.
@@ -71,7 +70,8 @@ static void swap( void * pFirstItem,
  * @param[in] low The low index of the array.
  * @param[in] high The high index of the array.
  * @param[in] itemSize The amount of memory per entry in the array.
- * @param[out] comparator The comparison function to determine if one item is less than another.
+ * @param[out] comparator The comparison function to determine if one item is
+ * less than another.
  */
 static void quickSortHelper( void * pArray,
                              size_t low,
@@ -88,7 +88,8 @@ static void quickSortHelper( void * pArray,
  * @param[in] low The low index of the array.
  * @param[in] high The high index of the array.
  * @param[in] itemSize The amount of memory per entry in the array.
- * @param[out] comparator The comparison function to determine if one item is less than another.
+ * @param[out] comparator The comparison function to determine if one item is
+ * less than another.
  *
  * @return The index of the pivot
  */
@@ -100,9 +101,7 @@ static size_t partition( void * pArray,
 
 /*-----------------------------------------------------------*/
 
-static void swap( void * pFirstItem,
-                  void * pSecondItem,
-                  size_t itemSize )
+static void swap( void * pFirstItem, void * pSecondItem, size_t itemSize )
 {
     uint8_t * pFirstByte = pFirstItem;
     uint8_t * pSecondByte = pSecondItem;
@@ -149,26 +148,30 @@ static void quickSortHelper( void * pArray,
         /* Calculate length of the left partition containing items smaller
          * than the pivot element.
          * The length is zero if either:
-         * 1. The pivoted item is the smallest in the the array before partitioning.
-         *              OR
-         * 2. The left partition is only of single length which can be treated as
-         * sorted, and thus, of zero length for avoided adding to the stack. */
-        len1 = ( ( partitionIndex != 0U ) && ( ( partitionIndex - 1U ) > lo ) ) ? ( partitionIndex - lo ) : 0U;
+         * 1. The pivoted item is the smallest in the the array before
+         * partitioning. OR
+         * 2. The left partition is only of single length which can be treated
+         * as sorted, and thus, of zero length for avoided adding to the stack.
+         */
+        len1 = ( ( partitionIndex != 0U ) && ( ( partitionIndex - 1U ) > lo ) )
+                   ? ( partitionIndex - lo )
+                   : 0U;
 
         /* Calculate length of the right partition containing items greater than
          * or equal to the pivot item.
          * The calculated length is zero if either:
-         * 1. The pivoted item is the greatest in the the array before partitioning.
-         *              OR
-         * 2. The right partition contains only a single length which can be treated as
-         * sorted, and thereby, of zero length to avoid adding to the stack. */
+         * 1. The pivoted item is the greatest in the the array before
+         * partitioning. OR
+         * 2. The right partition contains only a single length which can be
+         * treated as sorted, and thereby, of zero length to avoid adding to the
+         * stack. */
         len2 = ( ( partitionIndex + 1U ) < hi ) ? ( hi - partitionIndex ) : 0U;
 
         /* Push the information of the left and right partitions to the stack.
-         * Note: For stack space optimization, the larger of the partitions is pushed
-         * first and the smaller is pushed later so that the smaller part of the tree
-         * is completed first without increasing stack space usage before coming back
-         * to the larger partition. */
+         * Note: For stack space optimization, the larger of the partitions is
+         * pushed first and the smaller is pushed later so that the smaller part
+         * of the tree is completed first without increasing stack space usage
+         * before coming back to the larger partition. */
         if( len1 > len2 )
         {
             PUSH_STACK( lo, stack, top );
@@ -218,11 +221,14 @@ static size_t partition( void * pArray,
      * and larger or equal to items on the right. */
     for( ; j < high; j++ )
     {
-        /* Use comparator function to check current element is smaller than the pivot */
+        /* Use comparator function to check current element is smaller than the
+         * pivot */
         if( comparator( pArrayLocal + ( j * itemSize ), pivot ) < 0 )
         {
             ++i;
-            swap( pArrayLocal + ( i * itemSize ), pArrayLocal + ( j * itemSize ), itemSize );
+            swap( pArrayLocal + ( i * itemSize ),
+                  pArrayLocal + ( j * itemSize ),
+                  itemSize );
         }
     }
 

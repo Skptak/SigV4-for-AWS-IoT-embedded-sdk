@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -70,20 +71,19 @@ SigV4Status_t scanValue( const char * pDate,
 
     if( remainingLenToRead != 0U )
     {
-        LogError( ( "Parsing Error: Expected numerical string of type '%%%d%c', "
-                    "but received '%.*s'.",
-                    ( int ) lenToRead,
-                    formatChar,
-                    ( int ) lenToRead,
-                    pLoc ) );
+        LogError(
+            ( "Parsing Error: Expected numerical string of type '%%%d%c', "
+              "but received '%.*s'.",
+              ( int ) lenToRead,
+              formatChar,
+              ( int ) lenToRead,
+              pLoc ) );
         returnStatus = SigV4ISOFormattingError;
     }
 
     if( returnStatus != SigV4ISOFormattingError )
     {
-        addToDate( formatChar,
-                   result,
-                   pDateElements );
+        addToDate( formatChar, result, pDateElements );
     }
 
     return returnStatus;
@@ -130,17 +130,20 @@ void addToDate( const char formatChar,
     }
 }
 
-SigV4Status_t writeLineToCanonicalRequest( const char * pLine,
-                                           size_t lineLen,
-                                           CanonicalContext_t * pCanonicalContext )
+SigV4Status_t writeLineToCanonicalRequest(
+    const char * pLine,
+    size_t lineLen,
+    CanonicalContext_t * pCanonicalContext )
 {
     SigV4Status_t ret = SigV4InsufficientMemory;
 
-    assert( ( pCanonicalContext != NULL ) && ( pCanonicalContext->pBufCur != NULL ) );
+    assert( ( pCanonicalContext != NULL ) &&
+            ( pCanonicalContext->pBufCur != NULL ) );
 
     if( pCanonicalContext->bufRemaining >= ( lineLen + 1U ) )
     {
-        assert( __CPROVER_w_ok( pCanonicalContext->pBufCur, ( lineLen + 1U ) ) );
+        assert(
+            __CPROVER_w_ok( pCanonicalContext->pBufCur, ( lineLen + 1U ) ) );
         ret = SigV4Success;
     }
 
@@ -178,11 +181,13 @@ SigV4Status_t generateCanonicalQuery( const char * pQuery,
 {
     SigV4Status_t returnStatus = SigV4InsufficientMemory;
 
-    assert( ( pCanonicalContext != NULL ) && ( pCanonicalContext->pBufCur != NULL ) );
+    assert( ( pCanonicalContext != NULL ) &&
+            ( pCanonicalContext->pBufCur != NULL ) );
 
     if( nondet_bool() )
     {
-        __CPROVER_assume( pCanonicalContext->bufRemaining < SIGV4_PROCESSING_BUFFER_LENGTH );
+        __CPROVER_assume( pCanonicalContext->bufRemaining <
+                          SIGV4_PROCESSING_BUFFER_LENGTH );
         returnStatus = SigV4Success;
     }
     else
@@ -193,12 +198,13 @@ SigV4Status_t generateCanonicalQuery( const char * pQuery,
     return returnStatus;
 }
 
-SigV4Status_t generateCanonicalAndSignedHeaders( const char * pHeaders,
-                                                 size_t headersLen,
-                                                 uint32_t flags,
-                                                 CanonicalContext_t * pCanonicalContext,
-                                                 char ** pSignedHeaders,
-                                                 size_t * pSignedHeadersLen )
+SigV4Status_t generateCanonicalAndSignedHeaders(
+    const char * pHeaders,
+    size_t headersLen,
+    uint32_t flags,
+    CanonicalContext_t * pCanonicalContext,
+    char ** pSignedHeaders,
+    size_t * pSignedHeadersLen )
 {
     SigV4Status_t returnStatus = SigV4InsufficientMemory;
 
@@ -210,14 +216,18 @@ SigV4Status_t generateCanonicalAndSignedHeaders( const char * pHeaders,
 
     if( nondet_bool() )
     {
-        /* The signed headers are assumed to start at a location within the processing
-         * buffer and should not end past the length of the processing buffer. */
+        /* The signed headers are assumed to start at a location within the
+         * processing buffer and should not end past the length of the
+         * processing buffer. */
         size_t headersLen, headerOffset, bytesConsumed;
         char * pHeaders = NULL;
-        __CPROVER_assume( pCanonicalContext->bufRemaining < SIGV4_PROCESSING_BUFFER_LENGTH );
-        bytesConsumed = SIGV4_PROCESSING_BUFFER_LENGTH - pCanonicalContext->bufRemaining;
+        __CPROVER_assume( pCanonicalContext->bufRemaining <
+                          SIGV4_PROCESSING_BUFFER_LENGTH );
+        bytesConsumed = SIGV4_PROCESSING_BUFFER_LENGTH -
+                        pCanonicalContext->bufRemaining;
         __CPROVER_assume( headerOffset < bytesConsumed );
-        __CPROVER_assume( headersLen > 0U && headersLen <= bytesConsumed - headerOffset );
+        __CPROVER_assume( headersLen > 0U &&
+                          headersLen <= bytesConsumed - headerOffset );
         pHeaders = ( char * ) pCanonicalContext->pBufProcessing + headerOffset;
 
         *pSignedHeadersLen = headersLen;
@@ -232,11 +242,12 @@ SigV4Status_t generateCanonicalAndSignedHeaders( const char * pHeaders,
     return returnStatus;
 }
 
-SigV4Status_t copyHeaderStringToCanonicalBuffer( const char * pData,
-                                                 size_t dataLen,
-                                                 uint32_t flags,
-                                                 char separator,
-                                                 CanonicalContext_t * canonicalRequest )
+SigV4Status_t copyHeaderStringToCanonicalBuffer(
+    const char * pData,
+    size_t dataLen,
+    uint32_t flags,
+    char separator,
+    CanonicalContext_t * canonicalRequest )
 {
     SigV4Status_t returnStatus = SigV4Success;
     size_t buffRemaining;

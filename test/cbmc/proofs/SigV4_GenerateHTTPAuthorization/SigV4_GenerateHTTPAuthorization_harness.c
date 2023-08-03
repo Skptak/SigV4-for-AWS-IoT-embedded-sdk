@@ -4,34 +4,36 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
  * @file SigV4_GenerateHTTPAuthorization_harness.c
- * @brief Implements the proof harness for the SigV4_GenerateHTTPAuthorization function.
+ * @brief Implements the proof harness for the SigV4_GenerateHTTPAuthorization
+ * function.
  */
 
 /* Include paths for public enums, structures, and macros. */
-#include "stdlib.h"
+#include "hash_stubs.h"
 #include "sigv4.h"
 #include "sigv4_internal.h"
-#include "hash_stubs.h"
+#include "stdlib.h"
 
 void harness()
 {
@@ -53,9 +55,15 @@ void harness()
     /* This property applies to all hash functions. */
     if( pCryptoInterface != NULL )
     {
-        __CPROVER_assume( SIGV4_HMAC_SIGNING_KEY_PREFIX_LEN < pCryptoInterface->hashBlockLen && pCryptoInterface->hashBlockLen <= MAX_HASH_BLOCK_LEN );
-        __CPROVER_assume( 0U < pCryptoInterface->hashDigestLen && pCryptoInterface->hashDigestLen <= MAX_HASH_DIGEST_LEN );
-        __CPROVER_assume( pCryptoInterface->hashDigestLen <= pCryptoInterface->hashBlockLen );
+        __CPROVER_assume( SIGV4_HMAC_SIGNING_KEY_PREFIX_LEN <
+                              pCryptoInterface->hashBlockLen &&
+                          pCryptoInterface->hashBlockLen <=
+                              MAX_HASH_BLOCK_LEN );
+        __CPROVER_assume( 0U < pCryptoInterface->hashDigestLen &&
+                          pCryptoInterface->hashDigestLen <=
+                              MAX_HASH_DIGEST_LEN );
+        __CPROVER_assume( pCryptoInterface->hashDigestLen <=
+                          pCryptoInterface->hashBlockLen );
         pCryptoInterface->hashInit = nondet_bool() ? NULL : HashInitStub;
         pCryptoInterface->hashUpdate = nondet_bool() ? NULL : HashUpdateStub;
         pCryptoInterface->hashFinal = nondet_bool() ? NULL : HashFinalStub;
@@ -64,10 +72,13 @@ void harness()
     if( pCredentials != NULL )
     {
         /* Make size assumptions for string-like types. */
-        __CPROVER_assume( pCredentials->accessKeyIdLen <= MAX_ACCESS_KEY_ID_LEN );
-        __CPROVER_assume( pCredentials->secretAccessKeyLen < CBMC_MAX_OBJECT_SIZE );
+        __CPROVER_assume( pCredentials->accessKeyIdLen <=
+                          MAX_ACCESS_KEY_ID_LEN );
+        __CPROVER_assume( pCredentials->secretAccessKeyLen <
+                          CBMC_MAX_OBJECT_SIZE );
         pCredentials->pAccessKeyId = malloc( pCredentials->accessKeyIdLen );
-        pCredentials->pSecretAccessKey = malloc( pCredentials->secretAccessKeyLen );
+        pCredentials->pSecretAccessKey = malloc(
+            pCredentials->secretAccessKeyLen );
     }
 
     if( pHttpParams != NULL )
@@ -115,16 +126,24 @@ void harness()
     status = SigV4_GenerateHTTPAuthorization( pSigV4Params,
                                               pAuthBuf,
                                               authBufLen,
-                                              nondet_bool() ? NULL : &pSignature,
-                                              nondet_bool() ? NULL : &signatureLen );
-    __CPROVER_assert( status == SigV4InvalidParameter || status == SigV4Success || status == SigV4HashError || status == SigV4InsufficientMemory || status == SigV4MaxHeaderPairCountExceeded || status == SigV4MaxQueryPairCountExceeded, "This is not a valid SigV4 return status" );
+                                              nondet_bool() ? NULL
+                                                            : &pSignature,
+                                              nondet_bool() ? NULL
+                                                            : &signatureLen );
+    __CPROVER_assert( status == SigV4InvalidParameter ||
+                          status == SigV4Success || status == SigV4HashError ||
+                          status == SigV4InsufficientMemory ||
+                          status == SigV4MaxHeaderPairCountExceeded ||
+                          status == SigV4MaxQueryPairCountExceeded,
+                      "This is not a valid SigV4 return status" );
 
     if( status == SigV4Success )
     {
         /* The signature must start at a location within pAuthBuf and
          * should not end past the length of pAuthBuf. */
         __CPROVER_assert( pAuthBuf <= pSignature,
-                          "Signature does not start at a location within pAuthBuf." );
+                          "Signature does not start at a location within "
+                          "pAuthBuf." );
         __CPROVER_assert( pSignature + signatureLen <= pAuthBuf + *authBufLen,
                           "Signature ends past the length of pAuthBuf." );
     }

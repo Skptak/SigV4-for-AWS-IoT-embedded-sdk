@@ -145,6 +145,7 @@ jobs:
           include-file-types: .c,.h,.dox
           allowlist-file: ./.github/links_allowlist.txt
   proof_ci:
+    if: ${{ github.event.pull_request }}
     runs-on: cbmc_ubuntu-latest_32-core
     steps:
       - name: Set up CBMC runner

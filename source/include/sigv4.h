@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -31,12 +32,12 @@
 #define SIGV4_H_
 
 /* Standard includes. */
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
-    extern "C" {
+extern "C" {
 #endif
 /* *INDENT-ON* */
 
@@ -57,25 +58,41 @@
 /** @addtogroup sigv4_constants
  *  @{
  */
-#define SIGV4_AWS4_HMAC_SHA256                      "AWS4-HMAC-SHA256"                                              /**< AWS identifier for SHA256 signing algorithm. */
-#define SIGV4_AWS4_HMAC_SHA256_LENGTH               ( sizeof( SIGV4_AWS4_HMAC_SHA256 ) - 1U )                       /**< Length of AWS identifier for SHA256 signing algorithm. */
-#define SIGV4_HTTP_X_AMZ_DATE_HEADER                "x-amz-date"                                                    /**< AWS identifier for HTTP date header. */
-#define SIGV4_HTTP_X_AMZ_SECURITY_TOKEN_HEADER      "x-amz-security-token"                                          /**< AWS identifier for security token. */
+#define SIGV4_AWS4_HMAC_SHA256 \
+    "AWS4-HMAC-SHA256" /**< AWS identifier for SHA256 signing algorithm. */
+#define SIGV4_AWS4_HMAC_SHA256_LENGTH    \
+    ( sizeof( SIGV4_AWS4_HMAC_SHA256 ) - \
+      1U ) /**< Length of AWS identifier for SHA256 signing algorithm. */
+#define SIGV4_HTTP_X_AMZ_DATE_HEADER \
+    "x-amz-date" /**< AWS identifier for HTTP date header. */
+#define SIGV4_HTTP_X_AMZ_SECURITY_TOKEN_HEADER \
+    "x-amz-security-token" /**< AWS identifier for security token. */
 
-#define SIGV4_STREAMING_AWS4_HMAC_SHA256_PAYLOAD    "STREAMING-AWS4-HMAC-SHA256-PAYLOAD"                            /**< S3 identifier for chunked payloads. */
+#define SIGV4_STREAMING_AWS4_HMAC_SHA256_PAYLOAD                        \
+    "STREAMING-AWS4-HMAC-SHA256-PAYLOAD" /**< S3 identifier for chunked \
+                                            payloads. */
 /* MISRA Ref 5.4.1 [Macro identifiers] */
-/* More details at: https://github.com/aws/SigV4-for-AWS-IoT-embedded-sdk/blob/main/MISRA.md#rule-54 */
+/* More details at:
+ * https://github.com/aws/SigV4-for-AWS-IoT-embedded-sdk/blob/main/MISRA.md#rule-54
+ */
 /* coverity[other_declaration] */
-#define SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER           "x-amz-content-sha256"                                     /**< S3 identifier for streaming requests. */
-#define SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER_LENGTH    ( sizeof( SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER ) - 1U )  /**< Length of S3 identifier for streaming requests. */
-#define SIGV4_HTTP_X_AMZ_STORAGE_CLASS_HEADER            "x-amz-storage-class"                                      /**< S3 identifier for reduced streaming redundancy. */
+#define SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER \
+    "x-amz-content-sha256" /**< S3 identifier for streaming requests. */
+#define SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER_LENGTH    \
+    ( sizeof( SIGV4_HTTP_X_AMZ_CONTENT_SHA256_HEADER ) - \
+      1U ) /**< Length of S3 identifier for streaming requests. */
+#define SIGV4_HTTP_X_AMZ_STORAGE_CLASS_HEADER                                  \
+    "x-amz-storage-class" /**< S3 identifier for reduced streaming redundancy. \
+                           */
 
-#define SIGV4_ACCESS_KEY_ID_LENGTH                       20U                                                        /**< Length of access key ID. */
-#define SIGV4_SECRET_ACCESS_KEY_LENGTH                   40U                                                        /**< Length of secret access key. */
+#define SIGV4_ACCESS_KEY_ID_LENGTH 20U /**< Length of access key ID. */
+#define SIGV4_SECRET_ACCESS_KEY_LENGTH    \
+    40U /**< Length of secret access key. \
+         */
 
-#define SIGV4_ISO_STRING_LEN                             16U                                                        /**< Length of ISO 8601 date string. */
-#define SIGV4_EXPECTED_LEN_RFC_3339                      20U                                                        /**< Length of RFC 3339 date input. */
-#define SIGV4_EXPECTED_LEN_RFC_5322                      29U
+#define SIGV4_ISO_STRING_LEN                  16U /**< Length of ISO 8601 date string. */
+#define SIGV4_EXPECTED_LEN_RFC_3339           20U /**< Length of RFC 3339 date input. */
+#define SIGV4_EXPECTED_LEN_RFC_5322           29U
 /**< Length of RFC 5322 date input. */
 
 /** @}*/
@@ -96,7 +113,7 @@
  *
  * This flag is valid only for #SigV4HttpParameters_t.flags.
  */
-#define SIGV4_HTTP_PATH_IS_CANONICAL_FLAG        0x1U
+#define SIGV4_HTTP_PATH_IS_CANONICAL_FLAG     0x1U
 
 /**
  * @ingroup sigv4_canonical_flags
@@ -105,7 +122,7 @@
  *
  * This flag is valid only for #SigV4HttpParameters_t.flags.
  */
-#define SIGV4_HTTP_QUERY_IS_CANONICAL_FLAG       0x2U
+#define SIGV4_HTTP_QUERY_IS_CANONICAL_FLAG    0x2U
 
 /**
  * @ingroup sigv4_canonical_flags
@@ -114,7 +131,7 @@
  *
  * This flag is valid only for #SigV4HttpParameters_t.flags.
  */
-#define SIGV4_HTTP_HEADERS_ARE_CANONICAL_FLAG    0x4U
+#define SIGV4_HTTP_HEADERS_ARE_CANONICAL_FLAG 0x4U
 
 /**
  * @ingroup sigv4_canonical_flags
@@ -123,7 +140,7 @@
  *
  * This flag is valid only for #SigV4HttpParameters_t.flags.
  */
-#define SIGV4_HTTP_PAYLOAD_IS_HASH               0x8U
+#define SIGV4_HTTP_PAYLOAD_IS_HASH            0x8U
 
 /**
  * @ingroup sigv4_canonical_flags
@@ -132,7 +149,7 @@
  *
  * This flag is valid only for #SigV4HttpParameters_t.flags.
  */
-#define SIGV4_HTTP_ALL_ARE_CANONICAL_FLAG        0x7U
+#define SIGV4_HTTP_ALL_ARE_CANONICAL_FLAG     0x7U
 
 /**
  * @ingroup sigv4_enum_types
@@ -232,7 +249,7 @@ typedef struct SigV4CryptoInterface
      *
      * @return Zero on success, all other return values are failures.
      */
-    int32_t ( * hashInit )( void * pHashContext );
+    int32_t ( *hashInit )( void * pHashContext );
 
     /**
      * @brief Calculates an ongoing hash update (SHA-256, for example).
@@ -244,9 +261,9 @@ typedef struct SigV4CryptoInterface
      *
      * @return Zero on success, all other return values are failures.
      */
-    int32_t ( * hashUpdate )( void * pHashContext,
-                              const uint8_t * pInput,
-                              size_t inputLen );
+    int32_t ( *hashUpdate )( void * pHashContext,
+                             const uint8_t * pInput,
+                             size_t inputLen );
 
     /**
      * @brief Calculates the final binary digest of the hash from the context.
@@ -261,9 +278,9 @@ typedef struct SigV4CryptoInterface
      *
      * @return Zero on success, all other return values are failures.
      */
-    int32_t ( * hashFinal )( void * pHashContext,
-                             uint8_t * pOutput,
-                             size_t outputLen );
+    int32_t ( *hashFinal )( void * pHashContext,
+                            uint8_t * pOutput,
+                            size_t outputLen );
 
     /**
      * @brief Context for the hashInit, hashUpdate, and hashFinal interfaces.
@@ -288,15 +305,18 @@ typedef struct SigV4CryptoInterface
  */
 typedef struct SigV4HttpParameters
 {
-    const char * pHttpMethod; /**< @brief The HTTP method: GET, POST, PUT, etc. */
+    const char * pHttpMethod; /**< @brief The HTTP method: GET, POST, PUT, etc.
+                               */
     size_t httpMethodLen;     /**< @brief Length of pHttpMethod. */
 
     /**
-     * @brief These flags are used to indicate if the path, query, or headers are already
-     * in the canonical form. This is to bypass the internal sorting, white space
-     * trimming, and encoding done by the library. This is a performance optimization
-     * option. Please see https://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html
-     * for information on generating a canonical path, query, and headers string.
+     * @brief These flags are used to indicate if the path, query, or headers
+     * are already in the canonical form. This is to bypass the internal
+     * sorting, white space trimming, and encoding done by the library. This is
+     * a performance optimization option. Please see
+     * https://docs.aws.amazon.com/general/latest/gr/sigv4-create-canonical-request.html
+     * for information on generating a canonical path, query, and headers
+     * string.
      * - #SIGV4_HTTP_PATH_IS_CANONICAL_FLAG     0x1
      * - #SIGV4_HTTP_QUERY_IS_CANONICAL_FLAG    0x2
      * - #SIGV4_HTTP_HEADERS_ARE_CANONICAL_FLAG 0x4
@@ -318,10 +338,10 @@ typedef struct SigV4HttpParameters
     size_t pathLen; /**< @brief Length of pPath. */
 
     /**
-     * @brief The HTTP request query from the URL, if it exists. This contains all
-     * characters following the question mark character ("?") that denotes the start
-     * of the query. If SIGV4_HTTP_QUERY_IS_CANONICAL_FLAG is set, then this input
-     * must already be in canonical form.
+     * @brief The HTTP request query from the URL, if it exists. This contains
+     * all characters following the question mark character ("?") that denotes
+     * the start of the query. If SIGV4_HTTP_QUERY_IS_CANONICAL_FLAG is set,
+     * then this input must already be in canonical form.
      *
      * @note If the HTTP request does not contain query string, this can
      * be NULL.
@@ -433,12 +453,13 @@ typedef struct SigV4Parameters
 
 /**
  * @brief Generates the HTTP Authorization header value.
- * @note The API does not support HTTP headers containing empty HTTP header keys or values.
+ * @note The API does not support HTTP headers containing empty HTTP header keys
+ * or values.
  *
  * @param[in] pParams Parameters for generating the SigV4 signature.
  * @param[out] pAuthBuf Buffer to hold the generated Authorization header value.
- * @param[in, out] authBufLen Input: the length of @p pAuthBuf, output: the length
- * of the authorization value written to the buffer.
+ * @param[in, out] authBufLen Input: the length of @p pAuthBuf, output: the
+ * length of the authorization value written to the buffer.
  * @param[out] pSignature Location of the signature in the authorization string.
  * @param[out] signatureLen The length of @p pSignature.
  *
@@ -463,8 +484,8 @@ typedef struct SigV4Parameters
  *
  * SigV4Parameters_t sigv4Params =
  * {
- *     // Parsed temporary credentials obtained from AWS IoT Credential Provider.
- *     .pCredentials     = &sigv4Creds,
+ *     // Parsed temporary credentials obtained from AWS IoT Credential
+ * Provider. .pCredentials     = &sigv4Creds,
  *     // Date in ISO8601 format.
  *     .pDateIso8601     = pDateISO8601,
  *     // The AWS region for the request.
@@ -473,13 +494,14 @@ typedef struct SigV4Parameters
  *     // The AWS service for the request.
  *     .pService         = AWS_SERVICE_NAME,
  *     .serviceLen       = strlen( AWS_SERVICE_NAME ),
- *     // SigV4 crypto interface. See SigV4CryptoInterface_t interface documentation.
- *     .pCryptoInterface = &cryptoInterface,
- *     // HTTP parameters for the HTTP request to generate a SigV4 authorization header for.
- *     .pHttpParameters  = &sigv4HttpParams
+ *     // SigV4 crypto interface. See SigV4CryptoInterface_t interface
+ * documentation. .pCryptoInterface = &cryptoInterface,
+ *     // HTTP parameters for the HTTP request to generate a SigV4 authorization
+ * header for. .pHttpParameters  = &sigv4HttpParams
  * };
  *
- * status = SigV4_GenerateHTTPAuthorization( &sigv4Params, pSigv4Auth, &sigv4AuthLen, &signature, &signatureLen );
+ * status = SigV4_GenerateHTTPAuthorization( &sigv4Params, pSigv4Auth,
+ * &sigv4AuthLen, &signature, &signatureLen );
  *
  * if( status != SigV4Success )
  * {
@@ -550,7 +572,8 @@ SigV4Status_t SigV4_GenerateHTTPAuthorization( const SigV4Parameters_t * pParams
  *
  * // pDate and dateLen are the date header and length which are parsed from
  * // an AWS IoT Credential Provider HTTP response, using an HTTP library.
- * status = SigV4_AwsIotDateToIso8601( pDate, dateLen, pDateISO8601, pDateISO8601Len );
+ * status = SigV4_AwsIotDateToIso8601( pDate, dateLen, pDateISO8601,
+ * pDateISO8601Len );
  *
  * if( status != SigV4Success )
  * {
@@ -567,7 +590,7 @@ SigV4Status_t SigV4_AwsIotDateToIso8601( const char * pDate,
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
-    }
+}
 #endif
 /* *INDENT-ON* */
 

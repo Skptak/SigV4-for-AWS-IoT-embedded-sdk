@@ -4,22 +4,23 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 /**
@@ -45,11 +46,11 @@
  * <b>Possible values:</b> Any positive 32 bit integer. <br>
  * <b>Default value:</b> `64`
  */
-#define SIGV4_HASH_MAX_BLOCK_LENGTH     ( MAX_HASH_BLOCK_LEN - 1U )
+#define SIGV4_HASH_MAX_BLOCK_LENGTH  ( MAX_HASH_BLOCK_LEN - 1U )
 
 /**
- * @brief Macro defining the maximum digest length of the specified hash function,
- * used to determine the length of the output buffer.
+ * @brief Macro defining the maximum digest length of the specified hash
+ * function, used to determine the length of the output buffer.
  *
  * This macro should be updated if using a hashing algorithm other than SHA256
  * (32 byte digest length). For example, using SHA512 would require this
@@ -58,7 +59,7 @@
  * <b>Possible values:</b> Any positive 32 bit integer. <br>
  * <b>Default value:</b> `32`
  */
-#define SIGV4_HASH_MAX_DIGEST_LENGTH    ( MAX_HASH_DIGEST_LEN - 1U )
+#define SIGV4_HASH_MAX_DIGEST_LENGTH ( MAX_HASH_DIGEST_LEN - 1U )
 
 /**
  * @brief Macro defining the size of the internal buffer used for incremental
@@ -71,7 +72,7 @@
  * <b>Default value:</b> `1024`
  */
 #ifndef SIGV4_PROCESSING_BUFFER_LENGTH
-    #define SIGV4_PROCESSING_BUFFER_LENGTH    60U
+    #define SIGV4_PROCESSING_BUFFER_LENGTH 60U
 #endif
 
 /**
@@ -85,7 +86,7 @@
  * <b>Default value:</b> `100`
  */
 #ifndef SIGV4_MAX_HTTP_HEADER_COUNT
-    #define SIGV4_MAX_HTTP_HEADER_COUNT    5U
+    #define SIGV4_MAX_HTTP_HEADER_COUNT 5U
 #endif
 
 /**
@@ -99,7 +100,7 @@
  * <b>Default value:</b> `100`
  */
 #ifndef SIGV4_MAX_QUERY_PAIR_COUNT
-    #define SIGV4_MAX_QUERY_PAIR_COUNT    5U
+    #define SIGV4_MAX_QUERY_PAIR_COUNT 5U
 #endif
 
 #endif /* ifndef SIGV4_CONFIG_H_ */
