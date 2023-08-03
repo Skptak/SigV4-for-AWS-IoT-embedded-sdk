@@ -1,6 +1,6 @@
-*Issue #, if available:*
+_Issue #, if available:_
 
-*Description of changes:*
+_Description of changes:_
 
-
-By submitting this pull request, I confirm that my contribution is made under the terms of the MIT license.
+By submitting this pull request, I confirm that my contribution is made under
+the terms of the MIT license.

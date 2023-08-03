@@ -6,10 +6,8 @@
 # not added to the variables.
 
 # SigV4 library source files.
-set( SIGV4_SOURCES
-     "${CMAKE_CURRENT_LIST_DIR}/source/sigv4.c"
-     "${CMAKE_CURRENT_LIST_DIR}/source/sigv4_quicksort.c" )
+set(SIGV4_SOURCES "${CMAKE_CURRENT_LIST_DIR}/source/sigv4.c"
+                  "${CMAKE_CURRENT_LIST_DIR}/source/sigv4_quicksort.c")
 
 # SigV4 library public include directories.
-set( SIGV4_INCLUDE_PUBLIC_DIRS
-     "${CMAKE_CURRENT_LIST_DIR}/source/include" )
+set(SIGV4_INCLUDE_PUBLIC_DIRS "${CMAKE_CURRENT_LIST_DIR}/source/include")
