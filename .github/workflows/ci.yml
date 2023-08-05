@@ -117,7 +117,7 @@ jobs:
         with:
           submodules: "recursive"
       - name: Install Python3
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "3.11.0"
       - name: Measure sizes
@@ -132,7 +132,7 @@ jobs:
         with:
           submodules: recursive
       - name: Setup Python for link verifier action
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: "3.7.10"
       - name: Check Links
