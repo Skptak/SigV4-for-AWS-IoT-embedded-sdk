@@ -138,7 +138,7 @@ jobs:
       - name: Check Links
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: FreeRTOS/CI-CD-GitHub-Actions/link-verifier@main
+        uses: Skptak/CI-CD-Github-Actions/link-verifier@main
         with:
           path: ./
           exclude-dirs: cmock,unity,cbmc
