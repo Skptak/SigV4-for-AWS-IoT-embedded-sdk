@@ -1,5 +1,7 @@
 # AWS SigV4 Library
 
+**[API Documentation Pages for current and previous releases of this library can be found here](https://aws.github.io/SigV4-for-AWS-IoT-embedded-sdk/)**
+
 The AWS SigV4 Library is a standalone library for generating authorization
 headers and signatures according to the specifications of the
 [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)
