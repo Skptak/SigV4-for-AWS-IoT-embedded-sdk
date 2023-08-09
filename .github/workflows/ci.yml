@@ -154,21 +154,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Setup Python for link verifier action
-        uses: actions/setup-python@v3
-
       - name: Check Links
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: Skptak/CI-CD-Github-Actions/link-verifier@main
-        with:
-          path: ./
-          exclude-dirs: cmock,unity,cbmc
-          include-file-types: .c,.h,.dox
-          allowlist-file: ./.github/links_allowlist.txt
 
   proof_ci:
     if: ${{ github.event.pull_request }}
