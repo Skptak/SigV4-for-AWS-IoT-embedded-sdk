@@ -159,6 +159,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: Skptak/CI-CD-Github-Actions/link-verifier@main
 
+  verify-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Run manifest verifier
+        uses: FreeRTOS/CI-CD-GitHub-Actions/manifest-verifier@main
+        with:
+          path: ./
+          fail-on-incorrect-version: true
+
   proof_ci:
     if: ${{ github.event.pull_request }}
     runs-on: cbmc_ubuntu-latest_32-core
